@@ -6,5 +6,4 @@ generate() {
     -d author_fullname="Timothee Mazzucotelli" \
     -d author_username="pawamoy" \
     -d author_email="pawamoy@pm.me" \
-    -d insiders=true
 }
