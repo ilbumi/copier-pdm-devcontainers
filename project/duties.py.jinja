@@ -10,12 +10,6 @@ from typing import TYPE_CHECKING, Any
 from duty import duty
 from duty.callables import black, blacken_docs, coverage, lazy, mkdocs, mypy, pytest, ruff, safety
 
-if sys.version_info < (3, 8):
-    from importlib_metadata import version as pkgversion
-else:
-    from importlib.metadata import version as pkgversion
-
-
 if TYPE_CHECKING:
     from duty.context import Context
 
@@ -57,9 +51,6 @@ def mkdocs_config() -> str:  # noqa: D103
 
     # force YAML loader to merge arrays
     mergedeep.merge = merge
-
-    if "+insiders" in pkgversion("mkdocs-material"):
-        return "mkdocs.insiders.yml"
     return "mkdocs.yml"
 
 
@@ -227,25 +218,8 @@ def docs_deploy(ctx: Context) -> None:
     """
     os.environ["DEPLOY"] = "true"
     config_file = mkdocs_config()
-    if config_file == "mkdocs.yml":
-        ctx.run(lambda: False, title="Not deploying docs without Material for MkDocs Insiders!")
-    {%- if insiders %}
-    origin = ctx.run("git config --get remote.origin.url", silent=True)
-    if "{{ author_username }}-insiders/{{ repository_name }}" in origin:
-        ctx.run("git remote add upstream git@github.com:{{ repository_namespace }}/{{ repository_name }}", silent=True, nofail=True)
-        ctx.run(
-            mkdocs.gh_deploy(config_file=config_file, remote_name="upstream", force=True),
-            title="Deploying documentation",
-        )
-    else:
-        ctx.run(
-            lambda: False,
-            title="Not deploying docs from public repository (do that from insiders instead!)",
-            nofail=True,
-        )
-    {%- else %}
     ctx.run(mkdocs.gh_deploy(config_file=config_file), title="Deploying documentation")
-    {%- endif %}
+
 
 
 @duty
@@ -275,14 +249,6 @@ def release(ctx: Context, version: str) -> None:
         ctx: The context instance (passed automatically).
         version: The new version number to use.
     """
-    {%- if insiders %}
-    origin = ctx.run("git config --get remote.origin.url", silent=True)
-    if "{{ author_username }}-insiders/{{ repository_name }}" in origin:
-        ctx.run(
-            lambda: False,
-            title="Not releasing from insiders repository (do that from public repo instead!)",
-        )
-    {%- endif %}
     ctx.run("git add pyproject.toml CHANGELOG.md", title="Staging files", pty=PTY)
     ctx.run(["git", "commit", "-m", f"chore: Prepare release {version}"], title="Committing changes", pty=PTY)
     ctx.run(f"git tag {version}", title="Tagging commit", pty=PTY)

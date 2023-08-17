@@ -13,7 +13,7 @@ echo
 generate "${PWD}" "${output}"
 cd "${output}"
 git init .
-git remote add origin https://github.com/pawamoy/pawamoy-testing
+git remote add origin https://github.com/ilbumi/ilbumi-testing
 
 echo
 echo "///////////////////////////////////////////"
@@ -21,7 +21,9 @@ echo "             TESTING PROJECT"
 echo "///////////////////////////////////////////"
 echo
 echo ">>> Creating initial commit (feat)"
-sed -Ei 's/(_commit: [^-]+)-.*$/\1/' .copier-answers.yml
+sed -E 's/(_commit: [^-]+)-.*$/\1/' .copier-answers.yml > .copier-answers.yml.new
+rm -rf .copier-answers.yml
+mv .copier-answers.yml.new .copier-answers.yml
 git add -A .
 git commit -am "feat: Initial commit"
 git tag v0.1.0
@@ -59,4 +61,5 @@ echo "///////////////////////////////////////////"
 echo "             UPDATING PROJECT"
 echo "///////////////////////////////////////////"
 echo
+git reset --hard
 copier update -f --UNSAFE

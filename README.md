@@ -6,14 +6,8 @@ for Python projects managed by [PDM](https://github.com/pdm-project/pdm).
 This copier template is mainly for my own usage,
 but feel free to try it out, or fork it!
 
-Also checkout [copier-poetry](https://github.com/pawamoy/copier-poetry),
-which is the same template
-but with [Poetry](https://github.com/python-poetry/poetry) instead of PDM.
-If you are using it, see [how to migrate to copier-pdm](https://pawamoy.github.io/copier-pdm/migrate).
-
 ## Features
 
-- Support for Insiders versions of projects (e.g. see [@pawamoy's insiders](https://pawamoy.github.io/insiders/))
 - [PDM](https://github.com/pdm-project/pdm) setup, with pre-defined `pyproject.toml`
 - Documentation built with [MkDocs](https://github.com/mkdocs/mkdocs)
   ([Material theme](https://github.com/squidfunk/mkdocs-material)
@@ -28,7 +22,7 @@ If you are using it, see [how to migrate to copier-pdm](https://pawamoy.github.i
 - Tests run with [pytest](https://github.com/pytest-dev/pytest) and plugins, with [coverage](https://github.com/nedbat/coveragepy) support
 - Cross-platform tasks with [duty](https://github.com/pawamoy/duty)
 - Support for GitHub workflows
-- Python 3.8 or above
+- Python 3.9 or above
 - Auto-generated `CHANGELOG.md` from git commits (using Angular message style)
 - All licenses from [choosealicense.com](https://choosealicense.com/appendix/)
 - Makefile for convenience

@@ -27,13 +27,11 @@ jobs:
         - macos-latest
         - windows-latest
         python-version:
-        - "3.8"
         - "3.9"
         - "3.10"
         - "3.11"
-        - "3.12"
         copier-version:
-        - "8.0.0"
+        - "8.1.0"
 
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.os == 'windows-latest' || matrix.python-version == '3.12'}}
@@ -57,7 +55,7 @@ jobs:
         pdm config python.use_venv false
 
     - name: Set up the project
-      run: pip install copier==${{ matrix.copier-version }}
+      run: pip install copier==${{ matrix.copier-version }} copier-templates-extensions
 
     - name: Run the test suite
       run: make test
