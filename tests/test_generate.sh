@@ -61,4 +61,5 @@ echo "///////////////////////////////////////////"
 echo "             UPDATING PROJECT"
 echo "///////////////////////////////////////////"
 echo
+git reset --hard
 copier update -f --UNSAFE
