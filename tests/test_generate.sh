@@ -21,7 +21,7 @@ echo "             TESTING PROJECT"
 echo "///////////////////////////////////////////"
 echo
 echo ">>> Creating initial commit (feat)"
-sed -E -i'' 's/(_commit: [^-]+)-.*$/\1/' .copier-answers.yml
+sed -E --in-place='.bak' 's/(_commit: [^-]+)-.*$/\1/' .copier-answers.yml
 git add -A .
 git commit -am "feat: Initial commit"
 git tag v0.1.0
